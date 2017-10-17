@@ -1,6 +1,6 @@
 %{
 # Video tracking
--> DATA.Session
+-> s1.Session
 ---
 %}
 

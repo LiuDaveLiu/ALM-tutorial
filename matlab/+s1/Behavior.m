@@ -1,10 +1,10 @@
 %{
 # Behavior
--> DATA.Session
--> DATA.TaskType
+-> s1.Session
+-> s1.TaskType
 task_subtype                     : tinyint                    # task
 ---
--> DATA.TrainingType
+-> s1.TrainingType
 %}
 
 

@@ -1,6 +1,6 @@
 %{
-# ExtracellularProbe recording info
--> DATA.Session
+# ExtracelProbe recording info
+-> s1.Session
 ---
 recording_hemisphere        : varchar(8)                    #
 recording_brain_area        : varchar(32)                   #
@@ -10,10 +10,19 @@ recording_coords_z = null   : float                         # depth (Dorsal-Vent
 probe_type                  : varchar(60)                   #
 probe_id                    : varchar(60)                   #
 spike_sorting               : varchar(16)                   #
-sampling_fq                 : float                    # DAQ sampling frequeny 
+sampling_fq                 : float                         # DAQ sampling frequeny
 
 %}
 
 
-classdef ExtracellularProbe < dj.Manual
+classdef ExtracelProbe < dj.Manual
+    methods
+        function fill(self)
+            % ! fake data
+            self.insert({
+                353936 1 '' '' 0 0 0 '' '' '' 0
+                359856 1 '' '' 0 0 0 '' '' '' 0
+                })
+        end
+    end
 end

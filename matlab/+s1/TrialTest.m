@@ -1,6 +1,6 @@
 %{
 #
--> DATA.Trial
+-> s1.Trial
 ---
 hit_r                       : tinyint                      #
 hit_l                       : tinyint                      #
@@ -13,15 +13,19 @@ left_licks_times = null     : longblob                     # Time stamps for all
 right_licks_times = null    : longblob                     # Time stamps for all right licks, relative to the beginning of each trial
 %}
 
-classdef TrialOutcome < dj.Imported
+classdef TrialTest < dj.Part
     
-    methods(Access=protected)
+    properties(SetAccess=protected)
+        master = s1.Trial
+    end
+    
+    methods
         
         function makeTuples(self, key)
             
-            global obj
+            obj = s1.getObj(key);
             
-            trial_num = fetch1(DATA.Trial & key,'trial_num');
+            trial_num = fetch1(s1.Trial & key,'trial_num');
             trial_idx = find(obj.trialIDs == trial_num);
             
             %extracting trial outcomes
@@ -40,4 +44,5 @@ classdef TrialOutcome < dj.Imported
             self.insert(key);
         end
     end
+    
 end

@@ -1,6 +1,6 @@
 %{
-# ExtracelProbe recording info
--> DATA.Session
+# ExtracellularProbe recording info
+-> s1.Session
 ---
 recording_hemisphere        : varchar(8)                    #
 recording_brain_area        : varchar(32)                   #
@@ -15,5 +15,5 @@ sampling_fq                 : float                    # DAQ sampling frequeny
 %}
 
 
-classdef ExtracelProbe < dj.Manual
+classdef ExtracellularProbe < dj.Manual
 end
