@@ -28,3 +28,7 @@ The instructions for downloading the DataJoint library are available here:
 http://docs.datajoint.io/setup/Install-and-connect.html
 
 Please contact support through Slack if you run into any trouble.
+
+# Current ERD of Arseny's schema (work in progress)
+![S1-ERD](matlab/%2Bs1/erd.png)
+
