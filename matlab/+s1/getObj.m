@@ -14,7 +14,7 @@ end
 if ~strcmp(key, 'clear')
     hash = strjoin(cellfun(@(k) sprintf('%g', key.(k)), pkey, 'uni', false), '-');
     if ~store.isKey(hash)
-        s = load(fetch1(s1.Session & key, 'session_file'));
+        s = load([fetch1(s1.Session & key, 'processed_dir') fetch1(s1.Session & key, 'session_file')]);
         store(hash) = s.obj;
     end
     obj = store(hash);

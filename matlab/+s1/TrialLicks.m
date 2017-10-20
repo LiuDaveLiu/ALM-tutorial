@@ -6,7 +6,7 @@ lick_side   : enum('left', 'right')
 lick_times : longblob
 %}
 
-classdef TrialLicks < dj.Part
+classdef TrialS1Stim < dj.Part
     
     properties(SetAccess=protected)
         master= s1.Trial

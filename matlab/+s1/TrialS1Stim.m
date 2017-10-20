@@ -1,11 +1,13 @@
 %{
-# TrialOutcome
+# TrialS1Stim
 -> s1.Trial
--> s1.OutcomeType
+-> s1.S1StimType
+stim_time
+stim_durat
 -----
 %}
 
-classdef TrialOutcome < dj.Part
+classdef TrialS1Stim < dj.Part
     
     properties(SetAccess=protected)
         master= s1.Trial
@@ -26,7 +28,18 @@ classdef TrialOutcome < dj.Part
                     self.insert(key)
                 end
             end
+            
         end
+        %             key.err_r = outcomes_vec (strcmp(obj.trialTypeStr,'ErrR'));
+        %             key.no_lick_r = outcomes_vec (strcmp(obj.trialTypeStr,'NoLickR'));
+        %             key.lick_early = outcomes_vec (strcmp(obj.trialTypeStr,'LickEarly'));
+        %
+        %             for trialTypeNum = 1:length(obj.trialTypeStr)-1 % I am leaving the last row, because all the trial are marked as StimTrials for historic reasons, and we are not inerested in it
+        %                 if obj.trialTypeMat(trialTypeNum, trial_idx) %if it has 1 in this field (i.e HitL == 1)
+        %                     key.outcome = obj.trialTypeStr{trialTypeNum};
+        %                     self.inserti(key)
+        %                 end
+        %             end
     end
 end
 

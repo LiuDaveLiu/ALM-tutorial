@@ -21,12 +21,23 @@ classdef TrialOutcome < dj.Part
                 relevant_outcomes_names = (strfind(obj.trialTypeStr,outcome_types{iOutcome}));
                 outcomes_vec = obj.trialTypeMat(:,trial_idx); % a boolean vector with instruction-outcomes for this trial
                 
-                if sum(outcomes_vec(~cellfun(@isempty,relevant_outcomes_names))) >0 % if this particular outcome occured - insert it into the table
+                if sum(outcomes_vec(~cellfun(@isempty,relevant_outcomes_names))) >0 % if 
                     key.outcome = outcome_types{iOutcome};
                     self.insert(key)
                 end
             end
+            
         end
+        %             key.err_r = outcomes_vec (strcmp(obj.trialTypeStr,'ErrR'));
+        %             key.no_lick_r = outcomes_vec (strcmp(obj.trialTypeStr,'NoLickR'));
+        %             key.lick_early = outcomes_vec (strcmp(obj.trialTypeStr,'LickEarly'));
+        %
+        %             for trialTypeNum = 1:length(obj.trialTypeStr)-1 % I am leaving the last row, because all the trial are marked as StimTrials for historic reasons, and we are not inerested in it
+        %                 if obj.trialTypeMat(trialTypeNum, trial_idx) %if it has 1 in this field (i.e HitL == 1)
+        %                     key.outcome = obj.trialTypeStr{trialTypeNum};
+        %                     self.inserti(key)
+        %                 end
+        %             end
     end
 end
 
