@@ -14,6 +14,7 @@ s1.TrainingType; %initialize lookup table
 s1.TaskType; %initialize lookup table
 s1.InstructionType; %initialize lookup table
 s1.OutcomeType; %initialize lookup table
+s1.S1StimType; %initialize lookup table
 
 %% Insert/Populate tables
 allFiles = dir(dir_data); %gets  the names of all files and nested directories in this folder

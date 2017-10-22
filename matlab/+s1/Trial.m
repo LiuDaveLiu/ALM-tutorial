@@ -40,6 +40,7 @@ classdef Trial < dj.Imported
                 key_child.trial_id = key.trial_id;
                 makeTuples(s1.TrialOutcome, key_child, obj, trial_idx)
                 makeTuples(s1.TrialLicks, key_child, obj, trial_idx)
+                makeTuples(s1.TrialS1Stim, key_child, obj, trial_idx)
 
             end
             sprintf('Populated %d trials recorded from animal %d  on %s', iTrials, key.animal_id, fetch1(s1.Session & key,'session_date'));
