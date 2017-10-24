@@ -2,7 +2,7 @@ function DJimportSession
 close all; clear all;
 
 
-dir_data = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\ProcessedData_test\';
+dir_data = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\ProcessedData\';
 dir_video = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\RawData\video\';
 
 global obj

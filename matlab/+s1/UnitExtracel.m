@@ -27,7 +27,7 @@ classdef UnitExtracel < dj.Imported
                 key.unit_y = obj.eventSeriesHash.value{iUnits}.position_AP;
                 key.unit_z = obj.eventSeriesHash.value{iUnits}.depth;
                 key.unit_quality = obj.eventSeriesHash.value{iUnits}.quality;
-                key.unit_channel = obj.eventSeriesHash.value{iUnits}.channel;
+                key.unit_channel = mode(obj.eventSeriesHash.value{iUnits}.channel);
                 key.avg_waveform = obj.eventSeriesHash.value{iUnits}.waveforms;
                 self.insert(key)
             end
