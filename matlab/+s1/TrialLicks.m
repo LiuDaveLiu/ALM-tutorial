@@ -14,14 +14,14 @@ classdef TrialLicks < dj.Part
     
     methods
         
-        function makeTuples(self, key, obj, trial_idx)
+        function makeTuples(self, key, obj, iTrials)
             
             key.lick_side = 'left';
-            key.lick_times = obj.trialPropertiesHash.value{6}{trial_idx};
+            key.lick_times = obj.trialPropertiesHash.value{6}{iTrials};
             self.insert(key)
             
             key.lick_side = 'right';
-            key.lick_times = obj.trialPropertiesHash.value{7}{trial_idx};
+            key.lick_times = obj.trialPropertiesHash.value{7}{iTrials};
             self.insert(key)
             
         end

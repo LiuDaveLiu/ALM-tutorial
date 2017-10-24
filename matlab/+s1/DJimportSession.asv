@@ -1,8 +1,7 @@
 function DJimportSession
 close all; clear all;
 
-
-dir_data = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\ProcessedData_test\';
+dir_data = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\ProcessedData\';
 dir_video = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\RawData\video\';
 
 global obj
@@ -10,7 +9,7 @@ global obj
 DJconnect; %connect to the database using stored user credentials
 
 %% Initialize lookup tables
-s1.StrainType; %initialize lookup table
+s1.StrainType; 
 s1.GeneModType; %initialize lookup table
 s1.ExperimentType; %initialize lookup table
 s1.TrainingType; %initialize lookup table
@@ -18,7 +17,6 @@ s1.TaskType; %initialize lookup table
 s1.InstructionType; %initialize lookup table
 s1.OutcomeType; %initialize lookup table
 s1.S1StimType; %initialize lookup table
-s1.S1StimPowerType; %initialize lookup table
 
 %% Insert/Populate tables
 allFiles = dir(dir_data); %gets  the names of all files and nested directories in this folder
@@ -38,8 +36,9 @@ for iFile = 1:1:numel (allFileNames)
     exisitingAnimal = fetchn(s1.Animal,'animal_id');
     % inserts animal only if it was not inserted before
     if isempty(exisitingAnimal) ||  sum(currentAnimal == exisitingAnimal)<1
-        insert(s1.Animal, {currentAnimal, 'mouse', '2000-01-01', '?', 'Scnn1a-TG3-Cre X Ai32'} );
+        insert(s1.Animal, {currentAnimal, 'mouse', '2000-01-01','C57BL/6','Scnn1a X Ai93'} );
     end
+   %%  inserti - insertreplace
    
    
     %% Insert into Session table and into dependent tables
@@ -70,13 +69,16 @@ for iFile = 1:1:numel (allFileNames)
         currentSessionNumber = size (exisitingSession,1) +1;
         
         % Insert Session
-        insert(s1.Session, {currentAnimal, currentSessionNumber, currentSessionDate, currentSessionSuffix, dir_data, currentFileName, dir_video});
+        insert(s1.Session, {currentAnimal, currentSessionNumber, currentSessionDate, currentSessionSuffix, dir_data, currentFileName});
         insert(s1.SessionType, {currentAnimal, currentSessionNumber, 'behavior'});
         insert(s1.SessionType, {currentAnimal, currentSessionNumber, 'ephys'});
 
         % Insert Behavior
         insert(s1.Behavior,{currentAnimal,currentSessionNumber,'S1_stim_task', obj.task, obj.training_type});
-                
+        
+        % Insert Video
+        insert(s1.Video,{currentAnimal,currentSessionNumber});
+        
         % Insert ExtracelProbe
         insert(s1.ExtracelProbe,{currentAnimal,currentSessionNumber,...
             obj.location(1), obj.location(3:end), obj.position_ML, obj.position_AP, obj.depth, obj.probeType, obj.probeName, 'Yes', obj.neural_daq_freq});
@@ -95,5 +97,8 @@ for iFile = 1:1:numel (allFileNames)
     
 end
 
-% usefull commands: inserti  insertreplace
-% fetch(s1.Session & sprintf('session_date = "%s"',currentSessionDate))
+%         fetch(s1.Session & sprintf('session_date = "%s"',currentSessionDate))
+
+s1.Animal
+s1.Session
+s1.ExtracellularProbe

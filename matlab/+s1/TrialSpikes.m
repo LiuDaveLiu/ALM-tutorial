@@ -3,7 +3,7 @@
 -> s1.Trial
 -> s1.UnitExtracel
 ---
-spike_times                 : longblob                      # spike times aligned to trial
+spike_times                 : longblob                      # spike times for each trial (relative to the beginning of the trial)
 %}
 
 
@@ -15,7 +15,6 @@ classdef TrialSpikes < dj.Imported
             obj = s1.getObj(key);
             
             % Extracting spikes corresponding to this trial only
-            
             unit_num = fetch1(s1.UnitExtracel & key,'unit_num');
             trial_num = fetch1(s1.Trial & key,'trial_num');
             spikes = obj.eventSeriesHash.value{unit_num}.eventTimes; %all spikes for this unit

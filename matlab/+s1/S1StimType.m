@@ -1,14 +1,14 @@
 %{
-# S1StimType - i.e full stim or ministim
-stim_type : varchar(12)   # outcome code, non-mutually exclusive
+# S1StimType 
+stim_type = 'nostim'              : varchar(12)   # sample or distractor or no-stim
 %}
 
 classdef S1StimType < dj.Lookup
     properties
         contents = {
-            'full'
-            'mini'
-            'other'
+            'nostim'
+            'stim'
+            'distractor'
             }
     end
 end
