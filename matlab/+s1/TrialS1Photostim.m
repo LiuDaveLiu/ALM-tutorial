@@ -1,7 +1,7 @@
 %{
 # TrialS1Photostim
 -> s1.Trial
-stim_onset = 100               : double      # onset of the stimulation relative to the go-cue (s); 100 means that there was no stimulation
+stim_onset : decimal(6,3)      # onset of the stimulation relative to the go-cue (s)
 -----
 -> s1.S1StimType
 -> s1.S1StimPowerType
@@ -27,10 +27,7 @@ classdef TrialS1Photostim < dj.Part
             
             trial_type_name = fetchn(s1.Trial,'trial_type_name');
             stim_onsets = cellfun(@str2num,regexp(trial_type_name{iTrials},'\d*','Match'));
-            if isempty (stim_onsets) %if there is no stimulation (neither stim nor distractor)
-                key = primary_key;
-                self.insert(key)
-            else
+            if ~isempty(stim_onsets) %if there is no stimulation (neither stim nor distractor)
                 for iStim = 1:length(stim_onsets) % loop through the stimulation onsets
                     key = primary_key;
                     key.stim_onset = (stim_onsets(iStim))/1000 + offset;
@@ -63,9 +60,9 @@ classdef TrialS1Photostim < dj.Part
                             key.stim_power_type = 'mini';
                         end
                     end
-                    self.insert(key)
+                    tuples = [tuples; key]; %#ok<AGROW>
                 end
-                
+                self.insert(tuples)                
             end
             
         end

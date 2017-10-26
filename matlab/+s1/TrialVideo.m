@@ -1,7 +1,7 @@
 %{
 # TrialVideo  if there are more than one camera, each camera would have a separate entry
 -> s1.Trial
-video_id                  : double              # video_id unique across sessions
+video_id                  : int                 # video_id unique across sessions
 -----
 video_flag = 0            : tinyint             # flag indicating if there is a video or not
 camera_id = null          : tinyint             # camera id
@@ -19,19 +19,22 @@ classdef TrialVideo < dj.Part
     methods
         
         function makeTuples(self, key, obj, iTrials)
-            if isempty(obj.ephysVideoTrials)
-                key.video_id = size(fetch(s1.TrialVideo),1) + 1;
-%               key.video_flag = 0;
-                self.insert(key)
-            else
-                for iCam = 1:1:size(obj.ephysVideoTrials.Cam,2) %insert this for every camera
-                    key.video_id = size(fetch(s1.TrialVideo),1) + 1;
+            if ~isempty(obj.ephysVideoTrials)
+                tuples = [];
+                video_id = fetch1(s1.TrialVideo, 'max(video_id) -> mx');
+                if isnan(video_id)
+                    video_id = 0;
+                end
+                for iCam = 1:size(obj.ephysVideoTrials.Cam,2) %insert this for every camera
+                    video_id = video_id + 1;
+                    key.video_id = video_id;
                     Cam = obj.ephysVideoTrials.Cam {iCam};
                     key.camera_id = iCam-1;
                     key.video_flag = Cam.flags(iTrials);
                     key.video_file_name = Cam.fileName{iTrials};
-                    self.insert(key)
+                    tuples = [tuples; key]; %#ok<AGROW>
                 end
+                self.insert(tuples)
             end
         end
         

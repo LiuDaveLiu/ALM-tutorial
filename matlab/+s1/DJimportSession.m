@@ -5,8 +5,6 @@ close all; clear all;
 dir_data = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\ProcessedData\';
 dir_video = 'Z:\users\Arseny\Projects\SensoryInput\SiProbeRecording\RawData\video\';
 
-global obj
-
 DJconnect; %connect to the database using stored user credentials
 
 %% Initialize lookup tables
@@ -40,8 +38,8 @@ for iFile = 1:1:numel (allFileNames)
     if isempty(exisitingAnimal) ||  sum(currentAnimal == exisitingAnimal)<1
         insert(s1.Animal, {currentAnimal, 'mouse', '2000-01-01', '?', 'Scnn1a-TG3-Cre X Ai32'} );
     end
-   
-   
+    
+    
     %% Insert into Session table and into dependent tables
     exisitingSessionAnimal = fetchn(s1.Session,'animal_id');
     exisitingSession = fetchn(s1.Session,'session_id');
@@ -73,25 +71,22 @@ for iFile = 1:1:numel (allFileNames)
         insert(s1.Session, {currentAnimal, currentSessionNumber, currentSessionDate, currentSessionSuffix, dir_data, currentFileName, dir_video});
         insert(s1.SessionType, {currentAnimal, currentSessionNumber, 'behavior'});
         insert(s1.SessionType, {currentAnimal, currentSessionNumber, 'ephys'});
-
+        
         % Insert Behavior
         insert(s1.Behavior,{currentAnimal,currentSessionNumber,'S1_stim_task', obj.task, obj.training_type});
-                
+        
         % Insert ExtracelProbe
         insert(s1.ExtracelProbe,{currentAnimal,currentSessionNumber,...
             obj.location(1), obj.location(3:end), obj.position_ML, obj.position_AP, obj.depth, obj.probeType, obj.probeName, 'Yes', obj.neural_daq_freq});
         
-        % Populate Trial and its part table TrialOutcome
-        populate(s1.Trial);
-                
-        % Populate UnitExtracel
-        populate(s1.UnitExtracel);
-        
-        % Populate TrialSpikes
-        populate(s1.TrialSpikes);
         
         clear obj;
     end
+    
+    populate(s1.Trial)
+    populate(s1.UnitExtracel)
+    populate(s1.TrialSpikes)
+    
     
 end
 
