@@ -16,13 +16,4 @@ sampling_fq                 : float                         # DAQ sampling frequ
 
 
 classdef ExtracelProbe < dj.Manual
-    methods
-        function fill(self)
-            % ! fake data
-            self.insert({
-                353936 1 '' '' 0 0 0 '' '' '' 0
-                359856 1 '' '' 0 0 0 '' '' '' 0
-                })
-        end
-    end
 end

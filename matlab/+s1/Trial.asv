@@ -21,14 +21,20 @@ classdef Trial < dj.Imported
             for iTrials = 1:1:numel(obj.trialIDs)
                 
                 key.trial_id = size(fetch(s1.Trial),1) + 1;
+                trial_num = obj.trialIDs(iTrials);
+                trial_idx = find(obj.trialIDs == trial_num);
                 
+                if trial_idx ~= iTrials
+                    a=1
+                end
                 %extracting trial_type_name
-                key.trial_num = obj.trialIDs(iTrials);
                 stimEpochFlags = cell2mat(obj.trialPropertiesHash.stimEpochFlags);
                 key.trial_type_name = obj.trialPropertiesHash.stimEpochNames {stimEpochFlags (iTrials,:)};
                 key.instruction = key.trial_type_name(1);
                 key.start_time = obj.trialStartTimes(iTrials);
                 key.cue_time = obj.trialPropertiesHash.value{3}(iTrials);
+                
+                key.trial_num = trial_num;
                 
                 % insert the key into self
                 self.insert(key)
@@ -36,7 +42,7 @@ classdef Trial < dj.Imported
                 key_child.trial_id = key.trial_id;
                 makeTuples(s1.TrialOutcome, key_child, obj, iTrials)
                 makeTuples(s1.TrialLicks, key_child, obj, iTrials)
-                makeTuples(s1.TrialS1Photostim, key_child, obj, iTrials)
+                makeTuples(s1.TrialS1Stim, key_child, obj, iTrials)
                 makeTuples(s1.TrialVideo, key_child, obj, iTrials)
 
             end
