@@ -30,9 +30,7 @@ classdef Trial < dj.Imported
                 key.start_time = obj.trialStartTimes(iTrials);
                 key.cue_time = obj.trialPropertiesHash.value{3}(iTrials);
                 
-                % insert the key into self
-                self.insert(key)
-                
+                self.insert(key)                
                 key_child.trial_id = key.trial_id;
                 makeTuples(s1.TrialOutcome, key_child, obj, iTrials)
                 makeTuples(s1.TrialLicks, key_child, obj, iTrials)
@@ -40,7 +38,8 @@ classdef Trial < dj.Imported
                 makeTuples(s1.TrialVideo, key_child, obj, iTrials)
 
             end
-            sprintf('Populated %d trials recorded from animal %d  on %s', iTrials, key.animal_id, fetch1(s1.Session & key,'session_date'));
+            sprintf('Populated %d trials recorded from animal %d  on %s', ...
+                iTrials, key.animal_id, fetch1(s1.Session & key,'session_date'));
             
         end
     end

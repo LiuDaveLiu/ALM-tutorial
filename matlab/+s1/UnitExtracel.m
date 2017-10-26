@@ -20,6 +20,7 @@ classdef UnitExtracel < dj.Imported
         function makeTuples(self, key)
             obj = s1.getObj(key);
             
+            tuples = [];
             for iUnits = 1:size(obj.eventSeriesHash.value,2)
                 key.unit_id = size(fetch(s1.UnitExtracel),1) + 1;
                 key.unit_num = iUnits;
@@ -29,8 +30,9 @@ classdef UnitExtracel < dj.Imported
                 key.unit_quality = obj.eventSeriesHash.value{iUnits}.quality;
                 key.unit_channel = mode(obj.eventSeriesHash.value{iUnits}.channel);
                 key.avg_waveform = obj.eventSeriesHash.value{iUnits}.waveforms;
-                self.insert(key)
+                tuples = [tuples; key]; %#ok<AGROW>
             end
+            self.insert(tuples)
             fprintf('Populated %d units recorded from animal %d  on %s', ...
                 iUnits, key.animal_id, fetch1(s1.Session & key,'session_date'));
             
