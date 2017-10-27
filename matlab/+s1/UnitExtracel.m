@@ -22,7 +22,7 @@ classdef UnitExtracel < dj.Imported
             
             tuples = [];
             for iUnits = 1:size(obj.eventSeriesHash.value,2)
-                key.unit_id = size(fetch(s1.UnitExtracel),1) + 1;
+                key.unit_id = size(fetch(s1.UnitExtracel),1) + iUnits;
                 key.unit_num = iUnits;
                 key.unit_x = obj.eventSeriesHash.value{iUnits}.position_ML;
                 key.unit_y = obj.eventSeriesHash.value{iUnits}.position_AP;

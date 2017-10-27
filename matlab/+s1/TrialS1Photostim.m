@@ -24,7 +24,7 @@ classdef TrialS1Photostim < dj.Part
         function makeTuples(self, key, obj, iTrials)
             offset = - 4.2;
             primary_key = key;
-            
+            tuples = [];
             trial_type_name = fetchn(s1.Trial,'trial_type_name');
             stim_onsets = cellfun(@str2num,regexp(trial_type_name{iTrials},'\d*','Match'));
             if ~isempty(stim_onsets) %if there is no stimulation (neither stim nor distractor)
