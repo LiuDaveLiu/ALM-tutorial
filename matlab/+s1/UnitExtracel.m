@@ -24,9 +24,21 @@ classdef UnitExtracel < dj.Imported
             for iUnits = 1:size(obj.eventSeriesHash.value,2)
                 key.unit_id = size(fetch(s1.UnitExtracel),1) + iUnits;
                 key.unit_num = iUnits;
-                key.unit_x = obj.eventSeriesHash.value{iUnits}.position_ML;
-                key.unit_y = obj.eventSeriesHash.value{iUnits}.position_AP;
-                key.unit_z = obj.eventSeriesHash.value{iUnits}.depth;
+                if isfield(obj.eventSeriesHash.value{iUnits},'position_ML')
+                    key.unit_x = obj.eventSeriesHash.value{iUnits}.position_ML;
+                else
+                    key.unit_x = NaN;
+                end
+                if isfield(obj.eventSeriesHash.value{iUnits},'position_AP')
+                    key.unit_x = obj.eventSeriesHash.value{iUnits}.position_AP;
+                else
+                    key.unit_x = NaN;
+                end
+                if isfield(obj.eventSeriesHash.value{iUnits},'depth')
+                    key.unit_x = obj.eventSeriesHash.value{iUnits}.depth;
+                else
+                    key.unit_x = NaN;
+                end
                 key.unit_quality = obj.eventSeriesHash.value{iUnits}.quality;
                 key.unit_channel = mode(obj.eventSeriesHash.value{iUnits}.channel);
                 key.avg_waveform = obj.eventSeriesHash.value{iUnits}.waveforms;
